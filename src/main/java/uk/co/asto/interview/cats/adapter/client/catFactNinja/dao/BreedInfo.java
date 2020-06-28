@@ -1,9 +1,11 @@
-package uk.co.asto.interview.cats.model;
+package uk.co.asto.interview.cats.adapter.client.catFactNinja.dao;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
-public class Breed {
+@Data
+public class BreedInfo {
     private final String breed;
     private final String country;
     private final String origin;
@@ -11,7 +13,7 @@ public class Breed {
     private final String pattern;
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    public Breed(
+    public BreedInfo(
             @JsonProperty("breed") final String breed,
             @JsonProperty("country") final String country,
             @JsonProperty("origin") final String origin,
@@ -22,25 +24,5 @@ public class Breed {
         this.origin = origin;
         this.coat = coat;
         this.pattern = pattern;
-    }
-
-    public String getBreed() {
-        return breed;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public String getOrigin() {
-        return origin;
-    }
-
-    public String getCoat() {
-        return coat;
-    }
-
-    public String getPattern() {
-        return pattern;
     }
 }
