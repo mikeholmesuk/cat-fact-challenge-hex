@@ -1,7 +1,5 @@
 package uk.co.asto.interview.cats.adapter.api.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,14 +25,6 @@ public class FactController {
 
     @GetMapping
     public ResponseEntity<List<FactDTO>> getCatFacts(@RequestParam(value = "q") Optional<String> q) {
-//        final ResponseEntity<Map> response = restTemplate.getForEntity("/facts?limit=1000", Map.class);
-
-//        final List<FactDTO> facts = new ArrayList<>();
-//
-//        for (Map entry : (List<Map>) response.getBody().get("data")) {
-//            facts.add(new FactDTO((String) entry.get("fact")));
-//        }
-
         return  factService.findFacts(q).stream()
                 .map(fact -> FactDTO.builder().fact(fact.getFact()).build())
                 .collect(Collectors.collectingAndThen(Collectors.toList(), factDTOs -> ResponseEntity.ok().body(factDTOs)));
