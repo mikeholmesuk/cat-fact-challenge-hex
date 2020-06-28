@@ -11,7 +11,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import uk.co.asto.interview.cats.model.Fact;
+import uk.co.asto.interview.cats.adapter.api.model.dto.FactDTO;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class FactControllerTest {
     class FactsEndpoint {
         @Test
         public void shouldReturnHttp200OnSuccess() throws Exception {
-            final ResponseEntity<List<Fact>> response = restTemplate.exchange(
+            final ResponseEntity<List<FactDTO>> response = restTemplate.exchange(
                     "/facts",
                     HttpMethod.GET,
                     null,
@@ -42,7 +42,7 @@ public class FactControllerTest {
         public void shouldReturnAllFactsUnfiltered() throws Exception {
             final Integer unfilteredFactsCount = 332;
 
-            final ResponseEntity<List<Fact>> response = restTemplate.exchange(
+            final ResponseEntity<List<FactDTO>> response = restTemplate.exchange(
                     "/facts",
                     HttpMethod.GET,
                     null,
@@ -60,7 +60,7 @@ public class FactControllerTest {
             final Integer filteredFactsCount = 11;
             final String queryParameter = "Egypt";
 
-            final ResponseEntity<List<Fact>> response = restTemplate.exchange(
+            final ResponseEntity<List<FactDTO>> response = restTemplate.exchange(
                     String.format("/facts?q=%s", queryParameter),
                     HttpMethod.GET,
                     null,
@@ -73,7 +73,7 @@ public class FactControllerTest {
         public void shouldReturnEmptyListIfSearchTermDoesNotMatch() {
             final String nonExistentTerm = "DogsAreBetter";
 
-            final ResponseEntity<List<Fact>> response = restTemplate.exchange(
+            final ResponseEntity<List<FactDTO>> response = restTemplate.exchange(
                     String.format("/facts?q=%s", nonExistentTerm),
                     HttpMethod.GET,
                     null,
@@ -87,7 +87,7 @@ public class FactControllerTest {
             final String searchTerm = "Egypt";
             final SoftAssertions softly = new SoftAssertions();
 
-            final ResponseEntity<List<Fact>> response = restTemplate.exchange(
+            final ResponseEntity<List<FactDTO>> response = restTemplate.exchange(
                     String.format("/facts?q=%s", searchTerm),
                     HttpMethod.GET,
                     null,
